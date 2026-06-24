@@ -1,0 +1,215 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>ARGUS | Autonomous Business Intelligence Analyst</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">A</div>
+          <div>
+            <p class="eyebrow">Autonomous BI Analyst</p>
+            <h1>ARGUS</h1>
+          </div>
+        </div>
+
+        <nav class="nav-list" aria-label="ARGUS sections">
+          <a href="#search" class="nav-link active" data-nav="search">Search</a>
+          <a href="#timeline" class="nav-link" data-nav="timeline">Live Timeline</a>
+          <a href="#dashboard" class="nav-link" data-nav="dashboard">Dashboard</a>
+          <a href="#businesses" class="nav-link" data-nav="businesses">Businesses</a>
+          <a href="#evidence" class="nav-link" data-nav="evidence">Evidence</a>
+          <a href="#report" class="nav-link" data-nav="report">Report</a>
+        </nav>
+
+        <div class="system-card">
+          <p class="section-label">Pipeline</p>
+          <ol class="pipeline-mini">
+            <li>Scout</li>
+            <li>Collector</li>
+            <li>Normalizer</li>
+            <li>Deduplicator</li>
+            <li>Verifier</li>
+            <li>DNA Engine</li>
+            <li>Judge</li>
+          </ol>
+        </div>
+      </aside>
+
+      <main class="main-panel">
+        <section id="search" class="search-panel">
+          <div class="search-copy">
+            <p class="eyebrow">Do not just find businesses. Understand them.</p>
+            <h2>Search, investigate, verify, and score local businesses.</h2>
+            <p>
+              ARGUS simulates a multi-agent research session that collects evidence,
+              detects conflicts, scores trust, and produces analyst-grade recommendations.
+            </p>
+          </div>
+
+          <form class="search-form" id="searchForm">
+            <label for="queryInput">Research query</label>
+            <div class="query-row">
+              <input
+                id="queryInput"
+                name="query"
+                type="text"
+                value="Cardiologists in Birmingham"
+                autocomplete="off"
+              />
+              <button type="submit" class="primary-btn">
+                <span aria-hidden="true">⌕</span>
+                Run
+              </button>
+            </div>
+            <div class="query-meta" aria-live="polite">
+              <span id="parsedCategory">category: cardiologists</span>
+              <span id="parsedLocation">location: birmingham</span>
+              <span id="modeIndicator">mode: static preview</span>
+            </div>
+          </form>
+        </section>
+
+        <section id="timeline" class="panel-grid">
+          <div class="panel-wide">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">Live Timeline</p>
+                <h3>Research session</h3>
+              </div>
+              <div class="run-state" id="runState">Idle</div>
+            </div>
+            <div class="timeline" id="timelineList"></div>
+          </div>
+
+          <div class="agent-stack">
+            <p class="section-label">Agent Flow</p>
+            <div class="flow-node">User Query</div>
+            <div class="flow-node">Scout Agent</div>
+            <div class="flow-node">Collector</div>
+            <div class="flow-node">Verifier</div>
+            <div class="flow-node">DNA Engine</div>
+            <div class="flow-node">Analyst + Judge</div>
+          </div>
+        </section>
+
+        <section id="dashboard" class="metric-grid" aria-label="Research dashboard">
+          <div class="metric-card">
+            <p>Businesses</p>
+            <strong id="metricBusinesses">127</strong>
+          </div>
+          <div class="metric-card">
+            <p>Verified</p>
+            <strong id="metricVerified">104</strong>
+          </div>
+          <div class="metric-card">
+            <p>Duplicates Removed</p>
+            <strong id="metricDuplicates">23</strong>
+          </div>
+          <div class="metric-card">
+            <p>Sources</p>
+            <strong id="metricSources">18</strong>
+          </div>
+          <div class="metric-card">
+            <p>Duration</p>
+            <strong id="metricDuration">14s</strong>
+          </div>
+        </section>
+
+        <section id="businesses" class="business-section">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">Business Cards</p>
+              <h3>Verified candidates</h3>
+            </div>
+            <div class="segmented" role="tablist" aria-label="Business filter">
+              <button class="segment active" data-filter="all" type="button">All</button>
+              <button class="segment" data-filter="low" type="button">Low risk</button>
+              <button class="segment" data-filter="conflict" type="button">Conflicts</button>
+            </div>
+          </div>
+          <div class="business-grid" id="businessGrid"></div>
+        </section>
+
+        <section id="evidence" class="evidence-layout">
+          <div class="evidence-detail">
+            <div class="panel-heading">
+              <div>
+                <p class="section-label">Evidence Page</p>
+                <h3 id="evidenceTitle">Evidence receipts</h3>
+              </div>
+              <div class="confidence-pill" id="evidenceConfidence">96%</div>
+            </div>
+            <div id="evidenceFields"></div>
+          </div>
+
+          <div class="analyst-panel">
+            <p class="section-label">Analyst Notes</p>
+            <h3 id="analystName">Consultant summary</h3>
+            <p id="analystSummary"></p>
+            <div class="dna-breakdown" id="dnaBreakdown"></div>
+            <div class="evidence-graph" id="evidenceGraph" aria-label="Evidence graph"></div>
+            <div class="judge-box">
+              <span>Judge Recommendation</span>
+              <strong id="judgeRecommendation">HIGH</strong>
+            </div>
+            <div class="risk-strip">
+              <span>Risk</span>
+              <strong id="judgeRisk">LOW</strong>
+            </div>
+          </div>
+        </section>
+
+        <section id="report" class="report-section">
+          <div class="panel-heading">
+            <div>
+              <p class="section-label">Executive Research Report</p>
+              <h3>Ranked intelligence summary</h3>
+            </div>
+            <div class="export-actions">
+              <button class="segment" id="downloadJson" type="button">Download JSON</button>
+              <button class="segment" id="downloadCsv" type="button">Download CSV</button>
+            </div>
+          </div>
+          <div class="report-grid">
+            <article class="report-card report-wide">
+              <p class="section-label">Executive Summary</p>
+              <p id="reportExecutive">Run a search to generate a final research report.</p>
+            </article>
+            <article class="report-card">
+              <p class="section-label">Top 3 Recommendations</p>
+              <ol id="reportTop"></ol>
+            </article>
+            <article class="report-card">
+              <p class="section-label">Data Quality</p>
+              <p id="reportQuality">Awaiting research session.</p>
+            </article>
+            <article class="report-card">
+              <p class="section-label">Review Flags</p>
+              <div class="report-stat"><span>Conflicts</span><strong id="reportConflicts">0</strong></div>
+              <div class="report-stat"><span>Weak Records</span><strong id="reportWeak">0</strong></div>
+            </article>
+            <article class="report-card">
+              <p class="section-label">Challenge Metrics</p>
+              <div id="reportChallengeMetrics"></div>
+            </article>
+            <article class="report-card">
+              <p class="section-label">Scalability Simulation</p>
+              <div id="reportScaleMetrics"></div>
+            </article>
+            <article class="report-card">
+              <p class="section-label">Challenge Requirement Coverage</p>
+              <div id="reportCoverage"></div>
+            </article>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="./app.js"></script>
+  </body>
+</html>

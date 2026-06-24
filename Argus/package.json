@@ -1,0 +1,19 @@
+{
+  "name": "argus",
+  "version": "0.4.0",
+  "private": true,
+  "scripts": {
+    "backend": ".\\.venv\\Scripts\\python.exe -m uvicorn backend.main:app --reload --host 127.0.0.1 --port 8000",
+    "backend:host": ".\\.venv\\Scripts\\python.exe -m uvicorn backend.main:app --reload --host 0.0.0.0 --port 8000",
+    "dev:all": "powershell -NoProfile -ExecutionPolicy Bypass -Command \"Start-Process powershell -WindowStyle Hidden -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-Command','npm run backend'; Start-Process powershell -WindowStyle Hidden -ArgumentList '-NoProfile','-ExecutionPolicy','Bypass','-Command','npm run frontend:dev'\"",
+    "start:argus": "powershell -NoProfile -ExecutionPolicy Bypass -File scripts/start_argus.ps1",
+    "frontend:dev": "npm --prefix frontend run dev",
+    "frontend:dev:host": "npm --prefix frontend run dev -- --hostname 0.0.0.0",
+    "frontend:build": "npm --prefix frontend run build",
+    "smoke": "playwright test tests/e2e/smoke.spec.js --project=chromium",
+    "smoke:next": "playwright test tests/e2e/next-smoke.spec.js --project=chromium"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.57.0"
+  }
+}

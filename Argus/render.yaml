@@ -1,0 +1,41 @@
+services:
+  - type: web
+    name: argus-backend
+    runtime: python
+    plan: free
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn backend.main:app --host 0.0.0.0 --port $PORT
+    healthCheckPath: /api/health
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.10
+      - key: DATABASE_URL
+        fromDatabase:
+          name: argus-postgres
+          property: connectionString
+      - key: ARGUS_MODE
+        value: offline
+      - key: ARGUS_OFFLINE_MODE
+        value: "true"
+      - key: ARGUS_DEMO_MODE
+        value: "false"
+      - key: ARGUS_CACHE_TTL_SECONDS
+        value: "86400"
+      - key: ARGUS_CRAWL_CACHE_TTL_SECONDS
+        value: "86400"
+      - key: ARGUS_SEARCH_TIMEOUT_SECONDS
+        value: "10"
+      - key: ARGUS_MAX_RESULTS_PER_QUERY
+        value: "10"
+      - key: ARGUS_MAX_SOURCE_QUERIES
+        value: "12"
+      - key: ARGUS_MAX_PAGES_PER_SITE
+        value: "4"
+      - key: ARGUS_PRODUCTION_SAFE_MODE
+        value: "true"
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+
+databases:
+  - name: argus-postgres
+    plan: free
